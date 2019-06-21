@@ -7,11 +7,11 @@ Demonstration
 --
 - Origin epub
 
-![avatar](ja.jpg)
+![avatar](res/ja.jpg)
 
 - Translated epub
 
-![avatar](enja.jpg)
+![avatar](res/enja.jpg)
 
 
 Requirement

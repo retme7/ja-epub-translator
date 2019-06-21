@@ -3,6 +3,17 @@ Translate japanese epub into english one.
 very early stage version.
 
 
+Demonstration 
+--
+- Origin epub
+
+![avatar](ja.jpg)
+
+- Translated epub
+
+![avatar](enja.jpg)
+
+
 Requirement
 --
 ```

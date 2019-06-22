@@ -1,4 +1,4 @@
-# ja-epub-trasnlator
+# ja-epub-translator
 Translate japanese epub into english one.
 very early stage version.
 

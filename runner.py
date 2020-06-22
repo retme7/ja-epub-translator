@@ -1,5 +1,6 @@
 from googletrans import Translator
 from bookprocessor import BookProcessor, ConversionEngine
+from tencent import TencentTrans
 import time
 class ProgressCallback(object):
 
@@ -20,7 +21,7 @@ class ProgressCallback(object):
             self._progress = 100
 
 
-class SimpleConversionEngine(ConversionEngine):
+class GoogleConversionEngine(ConversionEngine):
     def __init__(self):
         self._translator = Translator(service_urls=['translate.google.cn'])
         self._times = 0
@@ -45,9 +46,35 @@ class SimpleConversionEngine(ConversionEngine):
 
         return text
 
+
+class TencentConversionEngine(ConversionEngine):
+    def __init__(self):
+        self._translator = TencentTrans()
+        self._translator.tolang = 'cn'
+        self._times = 0
+        self.chars_len = 0
+        return 
+    def convert(self, text):
+        if len(text) == 0:
+            return text
+
+        self.chars_len = self.chars_len + len(text)
+        print(self.chars_len)
+
+        self._times = self._times + 1
+
+        print(text)
+        t = self._translator.get_trans_result(text)
+
+        print(t)
+        #time.sleep(5)
+
+        return t
+
 if __name__ == "__main__":
 
-    e = SimpleConversionEngine()
+    #e = GoogleConversionEngine()
+    e = TencentConversionEngine()
     u = BookProcessor(e, progress_callback=ProgressCallback())
-    u.set_file("../input.epub", "../output.epub")
+    u.set_file("input.epub", "output.epub")
     u.convert()

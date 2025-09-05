@@ -1,7 +1,10 @@
 from googletrans import Translator
 from bookprocessor import BookProcessor, ConversionEngine
 from tencent import TencentTrans
+from aitranslator import OpenAITrans
 import time
+import argparse
+
 class ProgressCallback(object):
 
     def __init__(self):
@@ -47,10 +50,34 @@ class GoogleConversionEngine(ConversionEngine):
         return text
 
 
+class OpenAIConversionEngine(ConversionEngine):
+    def __init__(self):
+        self._translator = OpenAITrans()
+        self._translator.tolang = 'Simplified Chinese'
+        self._times = 0
+        self.chars_len = 0
+        return 
+    def convert(self, text):
+        if len(text) <= 2:
+            return text
+        self.chars_len = self.chars_len + len(text)
+        print(self.chars_len)
+        self._times = self._times + 1
+        
+        # Call the actual translation method
+        try:
+            result = self._translator.get_trans_result(text)
+            print(result)
+            return result
+        except Exception as err:
+            print(f"Translation error: {err}")
+            return "TRANSLATE ERROR"
+
+
 class TencentConversionEngine(ConversionEngine):
     def __init__(self):
         self._translator = TencentTrans()
-        self._translator.tolang = 'cn'
+        self._translator.tolang = 'Simplified Chinese'
         self._times = 0
         self.chars_len = 0
         return 
@@ -72,9 +99,18 @@ class TencentConversionEngine(ConversionEngine):
         return t
 
 if __name__ == "__main__":
-
+    
     #e = GoogleConversionEngine()
-    e = TencentConversionEngine()
+    #e = TencentConversionEngine()
+    e = OpenAIConversionEngine()
     u = BookProcessor(e, progress_callback=ProgressCallback())
-    u.set_file("input.epub", "output.epub")
+
+    parser = argparse.ArgumentParser(description='exp03')
+    parser.add_argument('--input', type=str, required=True, help='input epub file')
+    parser.add_argument('--output', type=str, required=False,default="output.epub", help='output epub file')
+    args = parser.parse_args()
+    input_path = args.input
+    output_path = args.output
+    
+    u.set_file(input_path, output_path)
     u.convert()

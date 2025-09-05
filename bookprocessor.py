@@ -111,8 +111,6 @@ class BookProcessor(object):
                 t.start()
                 #wait for finish. Do not use multi thread feature, OR your ip will be BANNED !
                 t.join()
-                if item.find("part0005_split_000") != -1:
-                    break
                 #threads.append(t)
 
             #for t in threads:

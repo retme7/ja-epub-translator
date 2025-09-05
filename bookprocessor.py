@@ -47,7 +47,7 @@ class BookProcessor(object):
         #for nstring in soup.findAll( {'rt' : True}):
         #    nstring.extract()
 
-        #remote tag <ruby> but keep the char inside
+        #remove tag <ruby> but keep the char inside
         for pTag in soup.findAll( {'p' : True}):
             #only support calibre-converted ebook, for NOW
             if pTag['class'] != 'calibre':
@@ -87,7 +87,7 @@ class BookProcessor(object):
             #    break
 
 
-        return str(soup)
+        return soup.encode(formatter=None).decode()
 
     def convert(self):
 
@@ -111,7 +111,8 @@ class BookProcessor(object):
                 t.start()
                 #wait for finish. Do not use multi thread feature, OR your ip will be BANNED !
                 t.join()
-
+                if item.find("part0005_split_000") != -1:
+                    break
                 #threads.append(t)
 
             #for t in threads:

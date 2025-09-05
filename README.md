@@ -21,19 +21,20 @@ Demonstration
 Requirement
 --
 ```
-pip install BeautifulSoup
-pip install googletrans
-```
+pip install -r requirements.txt
 
+```
 
 Usage
 --
-python runner.py
+1.  Use [Calibre](https://calibre-ebook.com/) to convert any e-books to Calibre formatted epub.
+2.  Setup base_url & api_key in aitranslator.py
+3. `python runner.py --input input.epub --output output`
+
 
 Limitation
 --
 - Only supports the epub files coverted by [Calibre](https://calibre-ebook.com/) for now.
-- Only translate one sentence per 5 second. That is [limited](https://github.com/ssut/py-googletrans/issues/121) by googletrans' API. Your IP may be banned if your request is submitted too fast.
 
 More details TBA.
 --

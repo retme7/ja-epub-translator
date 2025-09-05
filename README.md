@@ -4,7 +4,8 @@ very early stage version.
 
 Change log
 --
-* v0.11 Add new translator, now support jp-cn translation. Code from `http://github.com/neverneverendup/Translator`
+* v0.3 Support OpenAI API
+* v0.2 Add new translator, now support jp-cn translation. Code from `http://github.com/neverneverendup/Translator`
 * v0.1  Initial version
 
 Demonstration 

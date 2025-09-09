@@ -17,7 +17,7 @@ class OpenAITrans(object):
                 model=aiconfig.OPEN_AI_MODEL,
                 messages=[
                     #{"role": "system", "content": f"You are a translator. Translate the user's text into {self.tolang}."},
-                    {"role": "system", "content": f"You are a translator.Translate the user's text into fluent, elegant {self.tolang} with literary flair. Make sure the translation captures the tone, atmosphere, and emotions of the original text, while still reading naturally as if it were originally written in {self.tolang}."},
+                    {"role": "system", "content": f"You are a translator.Translate the user's text into fluent, elegant {self.tolang} with literary flair. Make sure the translation captures the tone, atmosphere, and emotions of the original text, while still reading naturally as if it were originally written in {self.tolang}. Only output the translation, do not explain."},
                     {"role": "user", "content": text},
                 ],
              )

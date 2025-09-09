@@ -1,7 +1,7 @@
 from googletrans import Translator
 from bookprocessor import BookProcessor, ConversionEngine
 from tencent import TencentTrans
-from aitranslator import OpenAITrans
+from aitranslator import OpenAITrans, OpenAITest
 import time
 import argparse
 
@@ -51,8 +51,11 @@ class GoogleConversionEngine(ConversionEngine):
 
 
 class OpenAIConversionEngine(ConversionEngine):
-    def __init__(self):
-        self._translator = OpenAITrans()
+    def __init__(self, test=False):
+        if test:
+            self._translator = OpenAITest()
+        else:
+            self._translator = OpenAITrans()
         self._translator.tolang = 'Simplified Chinese'
         self._times = 0
         self.chars_len = 0
@@ -102,15 +105,22 @@ if __name__ == "__main__":
     
     #e = GoogleConversionEngine()
     #e = TencentConversionEngine()
-    e = OpenAIConversionEngine()
-    u = BookProcessor(e, progress_callback=ProgressCallback())
+    
 
     parser = argparse.ArgumentParser(description='exp03')
     parser.add_argument('--input', type=str, required=True, help='input epub file')
     parser.add_argument('--output', type=str, required=False,default="output.epub", help='output epub file')
+    parser.add_argument('--mode', type=str, required=False,default="paragraph", help='mode: sentence or paragraph')
+    parser.add_argument('--test', action='store_true', help='test mode')
     args = parser.parse_args()
     input_path = args.input
     output_path = args.output
-    
+    mode = args.mode
+    test = args.test
+
+
+    e = OpenAIConversionEngine(test=test)
+
+    u = BookProcessor(e, progress_callback=ProgressCallback(), test=test)
     u.set_file(input_path, output_path)
-    u.convert()
+    u.convert(mode)

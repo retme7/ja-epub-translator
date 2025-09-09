@@ -1,3 +1,4 @@
+aiconfig.py
 *.epub
 __pycache__/
 output/*
